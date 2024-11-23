@@ -20,7 +20,7 @@ class AdminSeeder extends Seeder
             'username' => 'akmp',
             'password' => Hash::make('testestes'),
             'nama_admin'=> 'M. Razzaq A',
-            'email' => 'admin@gmail.com',
+            'email' => 'admin@admin.com',
             'no_telp' => '08123456789',
         ]);
     }

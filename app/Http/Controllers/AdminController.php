@@ -12,6 +12,9 @@ class AdminController extends Controller
 {
     public function dashboard(){
         return Inertia::render('Admin/dashboard', [
+            'auth' => [
+                'user' => Auth::guard('admin')->user(),
+            ],
             'status' => session('status'),
         ]);
     }
@@ -26,7 +29,9 @@ class AdminController extends Controller
         $check = $request->all();
 
         if(Auth::guard('admin')->attempt(['email' => $check['email'], 'password' => $check['password']])){
-            return Inertia::location(route('admin.dashboard'));
+            return Inertia::render('Admin/dashboard', [
+                'status' => session('status'),
+            ]);
         }
         else{
             return back()->with('Error', 'salah password atau email');
