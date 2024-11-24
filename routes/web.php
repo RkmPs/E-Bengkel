@@ -27,12 +27,17 @@ Route::middleware('admin')->group(function () {
     Route::post('/admin/create', [AdminController::class, 'store'])->name('admin.createSubmit');
     Route::get('/admin/{id}/edit', [AdminController::class, 'edit'])->name('admin.edit');
     Route::post('/admin/edit', [AdminController::class, 'update'])->name('admin.update');
-    Route::post('/admin/{id}', [AdminController::class, 'delete'])->name('admin.delete');
+    Route::post('/admin/{id}', [AdminController::class, 'destroy'])->name('admin.delete');
 
     /*-------------Sparepart-------------- */
-    Route::get('/admin/sparepart', [SparepartController::class, 'index'])->name('admin.sparepartShow');
-
+    Route::resource('/admin/sparepart', SparepartController::class);
     /*-----------End sparepart-------------- */
+
+
+    /*-----------sparepart-------------- */
+    /*-----------End sparepart-------------- */
+
+
 });
 /*-------------Userr Control-------------- */
 /*-------------End Userr-------------- */

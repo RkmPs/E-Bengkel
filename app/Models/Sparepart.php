@@ -9,11 +9,11 @@ class Sparepart extends Model
     //
     public function kategori()
     {
-        return $this->belongsTo(Kategori_sparepart::class, 'kategori_id', 'kategori_id');
+        return $this->belongsTo(Kategori_sparepart::class, 'kategori_id');
     }
 
     public function detailTransaksi()
     {
-        return $this->hasMany(Detail_transaksi::class, 'sparepart_id', 'sparepart_id');
+        return $this->hasMany(Detail_transaksi::class, 'sparepart_id');
     }
 }
