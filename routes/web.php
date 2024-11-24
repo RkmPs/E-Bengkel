@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SparepartController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -18,19 +19,28 @@ Route::get('/', function () {
 /*---------------Admin---------------- */
 Route::get('/admin/login', [AdminController::class, 'index'])->name('admin.login');
 Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.loginSubmit');
-Route::get('/admin/register', [AdminController::class, 'index'])->name('admin.register');
-Route::post('/admin/register', [AdminController::class, 'index'])->name('admin.registerSubmit ');
 
-Route::get('/admin/dashboard', [AdminController::class,'dashboard'])->name('admin.dashboard')
-->middleware('admin');
+Route::middleware('admin')->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/admin/admin-control', [AdminController::class, 'showAdmin'])->name('admin.show');
+    Route::get('/admin/create', [AdminController::class, 'addAdmin'])->name('admin.create');
+    Route::post('/admin/create', [AdminController::class, 'store'])->name('admin.createSubmit');
+    Route::get('/admin/{id}/edit', [AdminController::class, 'edit'])->name('admin.edit');
+    Route::post('/admin/edit', [AdminController::class, 'update'])->name('admin.update');
+    Route::post('/admin/{id}', [AdminController::class, 'delete'])->name('admin.delete');
+
+    /*-------------Sparepart-------------- */
+    Route::get('/admin/sparepart', [SparepartController::class, 'index'])->name('admin.sparepartShow');
+
+    /*-----------End sparepart-------------- */
+});
+/*-------------Userr Control-------------- */
+/*-------------End Userr-------------- */
 
 
 
 /*-------------End Admin-------------- */
 
-Route::get('/test-user', function () {
-    return \App\Models\User::first();
-});
 
 
 Route::get('/dashboard', function () {
